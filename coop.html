@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบสหกิจศึกษา</title>
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Prompt', sans-serif;
+    }
+  
+  /* Header */
+  header {
+    background: linear-gradient(90deg, #4db991, #054836);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Navigation */
+    nav {
+      background: linear-gradient(90deg, #4db991, #054836);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 2rem;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Logo */
+    .nav-logo img.faculty-logo {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+    }
+    
+    /* Links */
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      transition: background 0.3s, color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      background-color: white;
+      color: #6c096f;
+    }
+  
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+    
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+    
+      .nav-links a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+    
+    
+  
+  .carousel {
+    max-width: 100%;
+    height: 450px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .carousel-images img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(15, 23, 42, 0.5);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .carousel-btn.prev {
+    left: 10px;
+  }
+  
+  .carousel-btn.next {
+    right: 10px;
+  }
+  .carousel-slide {
+    position: relative;
+    width: 100%;
+    flex-shrink: 0;
+  }
+  
+  .carousel-caption {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(82, 116, 119, 0.5);
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    text-align: center;
+    max-width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  
+  section {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  h2 {
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+  
+  ul {
+    list-style: none;
+    padding-left: 1rem;
+  }
+  
+  ul li::before {
+    content: "\2022";
+    color: #38bdf8;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+  
+  .advisor-gallery {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .advisor-gallery div {
+    text-align: center;
+  }
+  
+  .advisor-card {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  
+  .advisor-gallery p {
+    margin-top: 0.5rem;
+    font-weight: bold;
+  }
+  
+  footer {
+    background: linear-gradient(90deg, #4db991, #054836);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+  }
+  body {
+      background-image: url('image/pic05.png'); /* ใส่ภาพพื้นหลังที่คุณต้องการ */
+      background-size: cover;                /* ปรับให้ภาพเต็มหน้าจอ */
+      background-position: center;          /* จัดตำแหน่งภาพให้อยู่ตรงกลาง */
+      background-attachment: fixed;         /* ทำให้ภาพพื้นหลังไม่เลื่อนตาม */
+      background-repeat: no-repeat;         /* ไม่ต้องให้ภาพซ้ำ */
+      color: #333;
+    }
+  
+     main {
+      background: rgba(255, 255, 255, 0.85); /* ขาวโปร่งใส อ่านง่าย */
+      border-radius: 0.75rem;
+      padding: 2rem;
+      margin: 1em auto;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 1200px;
+    } 
+  
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.6); /* ม่านขาวบางๆ คลุมทั้งหน้า */
+      z-index: -1;
+    }
+    
+    .advisor-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+      justify-items: center;
+    }
+    
+    .advisor-card-wrapper {
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    .advisor-card-box {
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .advisor-card-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+    
+    .advisor-card-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+    }
+    
+    .advisor-name {
+      padding: 1rem;
+      font-weight: bold;
+      color: #00796b;
+    }
+  
+    .advisor-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .advisor-btn {
+      background-color: #ffffff;
+      color: #088765;
+      border: 2px solid #128570;
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(155, 103, 149, 0.1);
+      min-width: 280px;
+      text-align: center;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .advisor-btn:hover {
+      background-color: #e1f3ef;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(27, 131, 119, 0.2);
+    }
+    
+    @media (max-width: 992px) {
+      .advisor-gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .advisor-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .student-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      justify-content: center;
+    }
+    
+    .student-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #712671; /* ฟ้าอมเขียว */
+      color: white;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 1rem;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s, transform 0.2s;
+      min-width: 280px;
+      
+    }
+    
+    .student-btn:hover {
+      background-color: #00897b;
+      transform: translateY(-3px);
+    }
+    
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+    
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    
+    .social-links {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    
+    .social-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: bold;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: background 0.3s, transform 0.2s;
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-3px);
+    }
+    
+    .facebook {
+      background-color: #1877f2;
+    }
+    
+    .line {
+      background-color: #06c755;
+    }
+    
+    .instagram {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    }
+    
+    /* QR */
+    .qr-section {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    
+    .qr-section h3 {
+      margin-bottom: 1rem;
+      color: #00796b;
+    }
+    
+    .qr-code {
+      max-width: 200px;
+      width: 100%;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    /* Map */
+    .map-container {
+      margin-top: 2rem;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">
+      <img src="images/SPU_SIT_logo-01 (2).png" alt="โลโก้คณะ" class="faculty-logo">
+    </div>
+    <div class="nav-links">
+      <a href="#home">หน้าแรก</a>
+      <a href="#student">นักศึกษา</a>
+      <a href="#advisor">อาจารย์</a>
+      <a href="#company">สถานประกอบการ</a>
+      <a href="#contact">ติดต่อเรา</a>
+    </div>
+  </nav>
+
+  <div class="carousel">
+    <div class="carousel-images" id="carouselImages">
+      
+      <div class="carousel-slide">
+        <img src="images/coffee-7567749_1280.jpg" alt="banner1">
+        <div class="carousel-caption">สหกิจศึกษา เสริมสร้างศักยภาพนักศึกษา</div>
+      </div>
+  
+      <div class="carousel-slide">
+        <img src="images/information-8589031_1280.png" alt="banner2">
+        <div class="carousel-caption">เชื่อมโยงสถาบันการศึกษากับสถานประกอบการ</div>
+      </div>
+  
+      <div class="carousel-slide">
+        <img src="images/switch-6955359_1280.jpg" alt="banner3">
+        <div class="carousel-caption">ประสบการณ์จริง เรียนรู้กับงานจริง</div>
+      </div>
+  
+      <div class="carousel-slide">
+        <img src="images/laptop-5673901_1280.jpg" alt="banner4">
+        <div class="carousel-caption">พัฒนาทักษะ เตรียมพร้อมสู่โลกแห่งอาชีพ</div>
+      </div>
+  
+    </div>
+  
+    <button class="carousel-btn prev" onclick="prevSlide()">❮</button>
+    <button class="carousel-btn next" onclick="nextSlide()">❯</button>
+  </div>
+  
+  
+  <main>
+    <header>
+      <h1>ระบบสหกิจศึกษา</h1>
+      <p>เชื่อมโยงนักศึกษา อาจารย์ และสถานประกอบการสู่ความสำเร็จ</p>
+    </header>
+    <section id="home">
+      <h2>ศูนย์สหกิจศึกษาและพัฒนาอาชีพ (Cooperative Education and Career Development Center)</h2>
+  
+      <p>
+        เป็นหน่วยงานกลางในระดับสถาบัน บริหารงานภายใต้การกำกับดูแลของรองอธิการบดี ทำหน้าที่ส่งเสริมสนับสนุนให้การดำเนินงานสหกิจศึกษาเป็นไปอย่างมีประสิทธิภาพและประสิทธิผล เพื่อเป็นแนวทางสำหรับการพัฒนาคุณภาพบัณฑิตให้มีความพร้อมที่จะสามารถทำงานได้ทันทีหลังสำเร็จการศึกษา และยังมุ่งเน้นการสร้างโอกาสในการได้งานทำและพัฒนาอาชีพอย่างต่อเนื่องให้แก่บัณฑิต/ศิษย์เก่า
+      </p>
+  
+      <p>
+        ภารกิจหลักของศูนย์แบ่งออกเป็น 2 ด้าน คือ
+      </p>
+  
+      <p>
+        <strong>1. งานสหกิจศึกษาและการศึกษาเชิงบูรณาการกับการทำงาน</strong><br>
+        มุ่งเน้นส่งเสริมสนับสนุนการดำเนินงานสหกิจศึกษาของคณะต่างๆ เพื่อสร้างโอกาสให้แก่นักศึกษาได้ออกไปปฏิบัติงานจริงที่เกี่ยวข้องกับวิชาชีพ ณ สถานประกอบการ ทำให้นักศึกษาได้เรียนรู้และสร้างเสริมทักษะ ประสบการณ์วิชาชีพก่อนสำเร็จการศึกษา อันเป็นแนวทางสำหรับการพัฒนาคุณภาพนักศึกษาให้มีความพร้อมที่จะสามารถทำงานได้ทันทีหลังสำเร็จการศึกษา และก้าวออกสู่ตลาดแรงงานเป็นบัณฑิตที่มีคุณภาพตรงตามความต้องการของสถานประกอบการ
+      </p>
+  
+      <p><strong>การให้บริการดังนี้:</strong></p>
+      <ol>
+        <li>การประชาสัมพันธ์ทั้งภายในและภายนอกมหาวิทยาลัยเกี่ยวกับเรื่องการดำเนินงานสหกิจศึกษา</li>
+        <li>การจัดทำแผนและดำเนินงานสหกิจศึกษา</li>
+        <li>ประสานงานกับคณะที่เกี่ยวข้องกับการดำเนินงานสหกิจศึกษา</li>
+        <li>สรุปและประเมินผลการดำเนินงานสหกิจศึกษา</li>
+        <li>ติดต่อและประสานงานสถานประกอบการ</li>
+        <li>สร้างเครือข่ายใหม่ และรักษาความสัมพันธ์อันดีกับสถานประกอบการ</li>
+        <li>จัดทำฐานข้อมูลสถานประกอบการ</li>
+        <li>รับผิดชอบงานเว็บไซต์ของศูนย์สหกิจศึกษา</li>
+        <li>ดูแลและรับผิดชอบระบบสหกิจศึกษาออนไลน์</li>
+        <li>ให้คำปรึกษาด้านสหกิจศึกษาผ่านทาง Facebook</li>
+      </ol>
+      <p>
+        <strong>2.งานพัฒนาอาชีพ </strong><br>
+        มุ่งเน้นการจัดอบรม/สัมมนาเพื่อพัฒนาศักยภาพนักศึกษาในด้านต่างๆ ให้มีความพร้อมที่จะสามารถทำงานได้อย่างมีประสิทธิภาพและมุ่งเน้นการสร้างโอกาสในการได้งานทำและพัฒนาอาชีพอย่างต่อเนื่องให้แก่นักศึกษา บัณฑิต/ศิษย์เก่า โดยทำหน้าที่เป็นหน่วยงานกลางประสานงานกับหน่วยงานภายในและภายนอกเกี่ยวกับตำแหน่งงานและแหล่งงานทั้งลักษณะงานประจำ (Full Time) และงานพิเศษ (Part Time) เพื่อสร้างงานและสร้างรายได้ให้แก่นักศึกษาในระหว่างศึกษา และสร้างงานสร้างรายได้ให้แก่บัณฑิต/ศิษย์เก่า 
+        <p><strong>การให้บริการดังนี้:</strong></p>
+        <ol>
+          <li>ดำเนินการจัดอบรมและสัมมนาให้นักศึกษา</li>
+          <li>จัดอบรมหรือสัมมนาให้กับศิษย์เก่า</li>
+          <li>รวบรวมองค์ความรู้ที่เกี่ยวข้องเพื่อเผยแพร่ให้ความรู้แก่ผู้สนใจ</li>
+          <li>บริการให้คำปรึกษาด้านการอบรมและตำแหน่งงานแก่นักศึกษาปัจจุบันและศิษย์เก่า  </li>
+          <li>ติดต่อประสานงานกับสถานประกอบการเกี่ยวกับตำแหน่งงาน</li>
+          <li>จัดทำฐานข้อมูลของสถานประกอบการ</li>
+          <li>จัดทำฐานข้อมูลของนักศึกษา</li>
+          <li>รวบรวมฐานข้อมูลนักศึกษาและบัณฑิตเพื่อแจ้งข่าวการอบรมและตำแหน่งงาน</li>
+          <li>รวบรวมฐานข้อมูลนักศึกษาและบัณฑิตเพื่อแจ้งข่าวการอบรมและตำแหน่งงาน</li>
+        </ol>
+      </p>
+
+    </section>
+  </main>
+  
+ <main>
+  <section id="student">
+    <h2 style="text-align: center;">นักศึกษา</h2>
+    <div class="student-actions">
+      <a href="#" class="student-btn">
+        📝 ลงทะเบียนเข้าร่วมโครงการ
+      </a>
+      <a href="#" class="student-btn">
+        📁 อัปโหลดรายงานและแบบฟอร์ม
+      </a>
+      <a href="#" class="student-btn">
+        🔍 ติดตามสถานะและผลการประเมิน
+      </a>
+    </div>
+  </section>
+  <section id="advisor">
+    <h2 style="text-align: center;">อาจารย์ที่ปรึกษา</h2>
+    <div class="advisor-actions">
+      <a href="#" class="advisor-btn">✅ ตรวจสอบและให้คำแนะนำหัวข้อ</a>
+      <a href="#" class="advisor-btn">📝 อนุมัติแผนการฝึกงาน</a>
+      <a href="#" class="advisor-btn">📊 ประเมินผลนักศึกษา</a>
+    </div>
+  
+    <div class="advisor-gallery">
+      <div class="advisor-card-wrapper">
+        <div class="advisor-card-box">
+          <img src="images/AJ4.JPG" alt="ที่ปรึกษา 1" class="advisor-card-img">
+          <p class="advisor-name">อาจารย์บุญศิริ มะสัน</p>
+        </div>
+      </div>
+      <div class="advisor-card-wrapper">
+        <div class="advisor-card-box">
+          <img src="images/AJ5.JPG" alt="ที่ปรึกษา 2" class="advisor-card-img">
+          <p class="advisor-name">อาจารย์สิริรัตน์ มัชฌิมาดิลก</p>
+        </div>
+      </div>
+      <div class="advisor-card-wrapper">
+        <div class="advisor-card-box">
+          <img src="images/Aj1.JPG" alt="ที่ปรึกษา 3" class="advisor-card-img">
+          <p class="advisor-name">ผศ.สุพล พรหมมาพันธ์</p>
+        </div>
+      </div>
+      <div class="advisor-card-wrapper">
+        <div class="advisor-card-box">
+          <img src="images/AJ2.JPG" alt="ที่ปรึกษา 4" class="advisor-card-img">
+          <p class="advisor-name">อาจารย์จีระวรรณ ฤกษะสุต</p>
+        </div>
+      </div>
+      <div class="advisor-card-wrapper">
+        <div class="advisor-card-box">
+          <img src="images/aj6.JPG" alt="ที่ปรึกษา 5" class="advisor-card-img">
+          <p class="advisor-name">อาจารย์พิรพัฒน์ จันทร</p>
+        </div>
+      </div>
+      <div class="advisor-card-wrapper">
+        <div class="advisor-card-box">
+          <img src="images/Aj3.JPG" alt="ที่ปรึกษา 5" class="advisor-card-img">
+          <p class="advisor-name">อาจารย์ชัชวาลย์ วรวิทย์รัตนกุล</p>
+        </div>
+      </div>
+    </div>
+  </section>
+ </main>
+  
+ <main>
+  <section id="company">
+    <h2 style="text-align: center;">บรรยากาศนิเทศสหกิจ ณ สถานประกอบการ</h2>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="gallery/p01.jpg" alt="นิเทศสหกิจ 1">
+      </div>
+      <div class="gallery-item">
+        <img src="gallery/p02.jpg" alt="นิเทศสหกิจ 2">
+      </div>
+      <div class="gallery-item">
+        <img src="gallery/p03.jpg" alt="นิเทศสหกิจ 3">
+      </div>
+      <div class="gallery-item">
+        <img src="gallery/p04.jpg" alt="นิเทศสหกิจ 4">
+      </div>
+      <div class="gallery-item">
+        <img src="gallery/p05.jpg" alt="นิเทศสหกิจ 4">
+      </div>
+      <div class="gallery-item">
+        <img src="gallery/p06.jpg" alt="นิเทศสหกิจ 4">
+      </div>
+      <div class="gallery-item">
+        <img src="gallery/p07.jpg" alt="นิเทศสหกิจ 4">
+      </div>
+      <div class="gallery-item">
+        <img src="gallery/p08.jpg" alt="นิเทศสหกิจ 4">
+      </div>
+      <div class="gallery-item">
+        <img src="gallery/p09.jpg" alt="นิเทศสหกิจ 4">
+      </div>
+      <div class="gallery-item">
+        <img src="gallery/p10.jpg" alt="นิเทศสหกิจ 4">
+      </div>
+      <div class="gallery-item">
+        <img src="gallery/p11.jpg" alt="นิเทศสหกิจ 4">
+      </div>
+      <div class="gallery-item">
+        <img src="gallery/p12.jpg" alt="นิเทศสหกิจ 4">
+      </div>
+      
+    </div>
+  </section>
+</main>
+<main>
+  <section id="contact">
+    <h2 style="text-align: center;">ติดต่อเรา</h2>
+
+    <p style="text-align: center;">
+      ศูนย์สหกิจศึกษา มหาวิทยาลัยศรีปทุม<br>
+      โทร: 02-561-1721 <br>
+      อีเมล: boonsiri.ma@spu.ac.th
+    </p>
+
+    <!-- ลิงก์โซเชียล -->
+    <div class="social-links">
+      <a href="https://www.facebook.com/spu.informatics" target="_blank" class="social-btn facebook">📘 Facebook</a>
+      <a href="#" target="_blank" class="social-btn line">💬 Line</a>
+      <a href="#" target="_blank" class="social-btn instagram">📷 Instagram</a>
+    </div>
+
+    <!-- QR Code -->
+    <div class="qr-section">
+      <h3>แสกน QR Code เพื่อเข้าร่วมกลุ่ม Line</h3>
+      <img src="images/line.JPG" alt="QR Code Line" class="qr-code">
+    </div>
+
+    <!-- Google Map -->
+    <div class="map-container">
+      <h1 style="text-align: center;">แผนที่การเดินทางไป มหาวิทยาลัยศรีปทุม</h1>
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3873.7234863094363!2d100.58290967443061!3d13.855629586547119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29d3b2deb49ff%3A0xd2ed4165c39645cc!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4Lio4Lij4Li14Lib4LiX4Li44Lih!5e0!3m2!1sth!2sth!4v1744212639484!5m2!1sth!2sth" 
+        width="100%" 
+        height="300" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+     </div>
+  </section>
+</main>
+
+    
+  
+
+  <footer>
+    <p>© มหาวิทยาลัยศรีปทุม 2410/2 ถ.พหลโยธิน เขตจตุจักร กรุงเทพฯ 10900 Tel: (662) 558-6888 Fax: (662) 561 1721</p>
+  </footer>
+
+  <script>
+    let currentIndex = 0;
+    const slides = document.querySelectorAll("#carouselImages img");
+    const totalSlides = slides.length;
+
+    function updateCarousel() {
+      const offset = -currentIndex * 100;
+      document.getElementById("carouselImages").style.transform = `translateX(${offset}%)`;
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateCarousel();
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+
+    // Auto-slide
+    setInterval(nextSlide, 5000);
+  </script>
+</body>
+</html>
